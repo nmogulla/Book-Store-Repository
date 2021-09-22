@@ -9,7 +9,9 @@ from django.views import generic
 
 from django.core.mail import send_mail
 
-from django.contrib.auth.models import User
+from django.contrib.auth.backends import BaseBackend
+
+from locallibrary import settings
 
 
 def index(request):
@@ -55,8 +57,10 @@ class BookDetailView(generic.DetailView):
 class AuthorsListView(generic.ListView):
     model = Author
 
+
 class AuthorDetailView(generic.DetailView):
     model = Author
+
 
 # add send e-mail confirmation
 # set up the subject, message, and user’s email address
@@ -64,14 +68,13 @@ class AuthorDetailView(generic.DetailView):
 subject = "Email Generation"
 message = "First Django Application"
 
-user = request.user  #request was passed to the method as a parameter for the view
-user_email = user.email # pull user’s email out of the user record
+user = settings  # request was passed to the method as a parameter for the view
+user_email = user.EMAIL_HOST_USER  # pull user’s email out of the user record
 
-#try to send the e-mail – note you can send to multiple users – this just sends
-#to one user.
+# try to send the e-mail – note you can send to multiple users – this just sends
+# to one user.
 try:
-    send_mail(subject, message, 'navaneetha.mogulla@gmail.com', [user_email])
+    send_mail(subject, message, from_email='navaneetha.mogulla@gmail.com', recipient_list=[user_email])
     sent = True
 except:
     print("Error sending e-mail")
-
