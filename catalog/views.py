@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import render
 
 # Create your views here.
@@ -5,6 +6,10 @@ from django.shortcuts import render
 from .models import Book, Author, BookInstance, Genre
 
 from django.views import generic
+
+from django.core.mail import send_mail
+
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -52,3 +57,21 @@ class AuthorsListView(generic.ListView):
 
 class AuthorDetailView(generic.DetailView):
     model = Author
+
+# add send e-mail confirmation
+# set up the subject, message, and user’s email address
+
+subject = "Email Generation"
+message = "First Django Application"
+
+user = request.user  #request was passed to the method as a parameter for the view
+user_email = user.email # pull user’s email out of the user record
+
+#try to send the e-mail – note you can send to multiple users – this just sends
+#to one user.
+try:
+    send_mail(subject, message, 'navaneetha.mogulla@gmail.com', [user_email])
+    sent = True
+except:
+    print("Error sending e-mail")
+

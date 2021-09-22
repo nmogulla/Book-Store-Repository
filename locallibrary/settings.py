@@ -123,8 +123,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 debug = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'navaneeha.mogulla@gmail.com'
+EMAIL_HOST_PASSWORD = 'Navvi@1994#'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
