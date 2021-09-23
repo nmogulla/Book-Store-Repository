@@ -11,7 +11,7 @@ from django.core.mail import send_mail
 
 from django.contrib.auth.backends import BaseBackend
 
-from locallibrary import settings
+from django.conf import settings
 
 
 def index(request):
@@ -78,3 +78,5 @@ try:
     sent = True
 except:
     print("Error sending e-mail")
+
+
